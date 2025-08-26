@@ -11,14 +11,14 @@ void allocateMemory(person **arr, int n){
     (*arr) = (person *)malloc(n * sizeof(person));
 
     for (int i=0; i<n; i++){
-        ((*arr)[i]).name = (char *)malloc(32 * sizeof(char));
+        ((*arr)[i]).name = (char *)malloc(33 * sizeof(char));
     }
 };
 
 void collectData(person *arr, int n){
     for (int i=0; i<n; i++){
         printf("Enter the details of person %d: \n", i+1);
-        printf("Enter name (max 31 char): ");
+        printf("Enter name (max 32 char): ");
         getchar();
         scanf("%[^\n]", arr[i].name);
         printf("Enter age: ");
