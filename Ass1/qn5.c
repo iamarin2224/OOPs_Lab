@@ -7,14 +7,14 @@ void allocateMemory(char ***names, int** age, int n){
     *age = (int *)malloc(n * sizeof(int));
 
     for (int i=0; i<n ; i++){
-        (*names)[i] = (char *)malloc(31 * sizeof(char));
+        (*names)[i] = (char *)malloc(33 * sizeof(char));
     }
 }
 
 void collectData(char **names, int* age, int n){
     for (int i=0; i<n; i++){
         printf("Enter the details of person %d: \n", i+1);
-        printf("Enter name (max 31 char): ");
+        printf("Enter name (max 32 char): ");
         getchar();
         scanf("%[^\n]", names[i]);
         printf("Enter age: ");
