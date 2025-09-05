@@ -1,39 +1,46 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 
+//Defining the student structure
 typedef struct student{
     int roll;
-    char* name;
+    char name[33];
     int score;
 }student;
 
+//Function to allocate space to the array with datatype as struct students
 void allocateMemory(student** arr, int n){
     (*arr) = (student *)malloc(n * sizeof(student));
-
-    for (int i=0; i<n; i++){
-        (*arr)[i].name = (char *)malloc(33 * sizeof(char));
-    }
 }
 
+//Main sort function
+//The third parameter is a pointer to a function, it serves as a placeholder to the comparision function of our choice
 void mySort(student* arr, int n, int (*compare)(student a, student b)){
+    student temp; //Declaration of temp variable
+    
+    //Bubble Sort Algorithm
     int flag = 0;
-    student temp;
     for (int i=0; i<n-1; i++){
         flag = 0;
         for (int j=0; j<n-i-1; j++){
+            //Use of the given comaprision function to check whether in sorted order
             if (!(compare(arr[j], arr[j+1]))){
+                //Swap if the adjacent elements are not in sorted order
                 temp = arr[j];
                 arr[j] = arr[j+1];
                 arr[j+1] = temp;
 
-                flag = 1;
+                flag = 1;   //Set flag as 1
             }
         }
-        if (!flag) break;
+        //flag = 0 implies array is already sorted, so we can stop further sorting
+        if (!flag) break;  
     }
 }
 
+//Various comparision function based on need
+
+// for score in ascending order
 int scoreAsc(student a, student b){
     if (a.score <= b.score){
         return 1;
@@ -41,6 +48,7 @@ int scoreAsc(student a, student b){
     return 0;
 }
 
+// for score in ascending order
 int scoreDesc(student a, student b){
     if (a.score >= b.score){
         return 1;
@@ -48,6 +56,7 @@ int scoreDesc(student a, student b){
     return 0;
 }
 
+// for roll in descending order
 int rollAsc(student a, student b){
     if (a.roll <= b.roll){
         return 1;
@@ -55,6 +64,7 @@ int rollAsc(student a, student b){
     return 0;
 }
 
+// for roll in descending order
 int rollDesc(student a, student b){
     if (a.roll >= b.roll){
         return 1;
@@ -62,6 +72,7 @@ int rollDesc(student a, student b){
     return 0;
 }
 
+//Function for initial collection of data
 void collectData(student* arr, int n){
     for (int i=0; i<n; i++){
         printf("Enter the details of person %d-> \n", i+1);
@@ -77,6 +88,7 @@ void collectData(student* arr, int n){
     }
 }
 
+//Function to display the data
 void displayData(student* arr, int n){
     printf("The list of students is: \n");
     for(int i=0; i<n; i++){
@@ -94,12 +106,12 @@ int main(){
     printf("Enter number of records you want: ");
     scanf("%d", &n);
 
+    //Declare array of struct students, then allocate space and collect data
     student* arr;
-
     allocateMemory(&arr, n);
-
     collectData(arr, n);
 
+    //Menu to let user decide the sorting criteria
     printf("\
         Enter your choice: \n\
         1. Sort according to *ROLL* in *ASCENDING* order \n\
@@ -110,6 +122,8 @@ int main(){
     
     int choice;
     scanf("%d", &choice);
+    
+    //Implementation of the sorting, by using the required comparison function
 
     if (choice == 1){
         mySort(arr, n, rollAsc);
