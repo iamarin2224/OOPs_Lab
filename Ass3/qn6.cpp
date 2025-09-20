@@ -7,8 +7,8 @@ struct Student
     float score;
 
     void inputDetails(){
-        cout<<"Enter roll: "; cin>>this->roll;
-        cout<<"Enter score: "; cin>>this->score;
+        cout<<"Enter roll: "; cin>>roll;
+        cout<<"Enter score: "; cin>>score;
     }
 
     void showDetails(){
